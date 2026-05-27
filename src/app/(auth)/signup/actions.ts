@@ -32,7 +32,7 @@ export async function signup(prevState: SignupState, formData: FormData): Promis
     if (error.message.toLowerCase().includes('already registered')) {
       return { error: '이미 사용 중인 이메일입니다.' }
     }
-    return { error: `[디버그] ${error.message}` }
+    return { error: '회원가입 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.' }
   }
 
   // 이메일 인증 비활성화 시: 즉시 세션 발급 → /logs 로 이동
