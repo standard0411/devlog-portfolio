@@ -1,4 +1,5 @@
 import type { Project, Skill, Log, SkillCategory, SkillLevel } from '@/types'
+import type { PortfolioData } from '@/lib/portfolio/types'
 
 const SKILL_CATEGORY_LABELS: Record<SkillCategory, string> = {
   frontend: '프론트엔드',
@@ -22,23 +23,18 @@ const LOG_CATEGORY_LABELS = {
 
 const SKILL_CATEGORY_ORDER: SkillCategory[] = ['frontend', 'backend', 'db', 'devops', 'etc']
 
-export function generateMarkdown(data: {
-  projects: Project[]
-  skills: Skill[]
-  logs: Log[]
-  userEmail: string
-}): string {
-  const { projects, skills, logs, userEmail } = data
+export function generateMarkdown(data: PortfolioData): string {
+  const { profile, projects, skills, logs } = data
   const lines: string[] = []
 
-  const username = userEmail.split('@')[0]
+  const name = profile.display_name ?? profile.username
   const generatedAt = new Date().toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   })
 
-  lines.push(`# ${username} 포트폴리오`)
+  lines.push(`# ${name} 포트폴리오`)
   lines.push('')
   lines.push(`> 생성일: ${generatedAt}`)
   lines.push('')

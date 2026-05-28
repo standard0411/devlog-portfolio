@@ -40,6 +40,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <NavLink href="/projects">프로젝트</NavLink>
             <NavLink href="/skills">기술 스택</NavLink>
             <NavLink href="/portfolio">포트폴리오</NavLink>
+            <NavLink href="/settings">설정</NavLink>
           </nav>
 
           {/* 로그아웃 */}

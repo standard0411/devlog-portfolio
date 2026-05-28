@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import type { SkillCategory, SkillLevel } from '@/types'
+import { revalidatePortfolio } from '@/lib/portfolio/revalidatePortfolio'
 
 const VALID_CATEGORIES: SkillCategory[] = ['frontend', 'backend', 'db', 'devops', 'etc']
 const VALID_LEVELS: SkillLevel[] = ['learning', 'familiar', 'proficient']
@@ -45,6 +46,7 @@ export async function addSkill(prevState: SkillState, formData: FormData): Promi
   }
 
   revalidatePath('/skills')
+  await revalidatePortfolio(user.id, supabase)
   redirect('/skills')
 }
 
@@ -92,6 +94,7 @@ export async function updateSkill(
   }
 
   revalidatePath('/skills')
+  await revalidatePortfolio(user.id, supabase)
   redirect('/skills')
 }
 
@@ -110,5 +113,6 @@ export async function deleteSkill(id: string, _formData: FormData): Promise<void
     .eq('user_id', user.id)
 
   revalidatePath('/skills')
+  await revalidatePortfolio(user.id, supabase)
   redirect('/skills')
 }

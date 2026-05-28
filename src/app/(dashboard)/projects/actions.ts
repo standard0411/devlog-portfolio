@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { revalidatePortfolio } from '@/lib/portfolio/revalidatePortfolio'
 
 export type ProjectState = { error: string } | null
 
@@ -51,6 +52,7 @@ export async function addProject(prevState: ProjectState, formData: FormData): P
     return { error: '저장에 실패했습니다. 잠시 후 다시 시도해주세요.' }
   }
 
+  await revalidatePortfolio(user.id, supabase)
   redirect('/projects')
 }
 
@@ -109,6 +111,7 @@ export async function updateProject(
     return { error: '수정에 실패했습니다. 잠시 후 다시 시도해주세요.' }
   }
 
+  await revalidatePortfolio(user.id, supabase)
   redirect(`/projects/${id}`)
 }
 
@@ -126,5 +129,6 @@ export async function deleteProject(id: string, _formData: FormData): Promise<vo
     .eq('id', id)
     .eq('user_id', user.id)
 
+  await revalidatePortfolio(user.id, supabase)
   redirect('/projects')
 }

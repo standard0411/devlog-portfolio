@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { ensureProfile } from '@/lib/profile'
 
 export type SignupState = {
   error?: string
@@ -33,6 +34,14 @@ export async function signup(prevState: SignupState, formData: FormData): Promis
       return { error: '이미 사용 중인 이메일입니다.' }
     }
     return { error: '회원가입 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.' }
+  }
+
+  if (data.user) {
+    try {
+      await ensureProfile(data.user.id, email, supabase)
+    } catch {
+      return { error: '프로필 생성에 실패했습니다. 잠시 후 다시 시도해주세요.' }
+    }
   }
 
   // 이메일 인증 비활성화 시: 즉시 세션 발급 → /logs 로 이동
