@@ -46,6 +46,13 @@ export async function updateProfile(
     return { error: '저장에 실패했습니다. 잠시 후 다시 시도해주세요.' }
   }
 
+  // username이 변경된 경우 이력 저장 — 실패해도 프로필 변경 자체는 완료됨
+  if (oldProfile?.username && oldProfile.username !== username) {
+    await supabase
+      .from('username_history')
+      .insert({ user_id: user.id, old_username: oldProfile.username })
+  }
+
   // Revalidate old and new public portfolio URLs
   if (oldProfile?.username) revalidatePath(`/u/${oldProfile.username}`, 'page')
   revalidatePath(`/u/${username}`, 'page')
