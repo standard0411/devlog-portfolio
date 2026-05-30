@@ -71,6 +71,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const displayName = result.displayName ?? username
   const description = result.bio ?? `${displayName}의 개발 프로젝트와 기술 스택`
 
+  const ogImage = `/api/og?username=${encodeURIComponent(username)}`
+
   return {
     title: `${displayName}의 포트폴리오`,
     description,
@@ -85,12 +87,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `/u/${username}`,
       siteName: 'DevLog',
       locale: 'ko_KR',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `${displayName}의 포트폴리오` }],
     },
     twitter: {
-      // OG 이미지 미구현 단계에서는 summary (large image 카드는 이미지 없으면 빈 영역)
-      card: 'summary',
+      card: 'summary_large_image',
       title: `${displayName}의 포트폴리오`,
       description,
+      images: [ogImage],
     },
     robots: {
       index: true,
