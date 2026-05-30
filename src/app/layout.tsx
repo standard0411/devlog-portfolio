@@ -13,6 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL ??
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'),
+  ),
   title: "DevLog — 공부 기록 & 포트폴리오",
   description: "CS 공부, 개발 트렌드, 프로젝트를 기록하고 포트폴리오를 자동 생성하세요.",
 };
