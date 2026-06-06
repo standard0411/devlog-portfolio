@@ -23,7 +23,7 @@ export default function LogCard({ log }: { log: Log }) {
 
       <button
         onClick={() => setExpanded(!expanded)}
-        className="mt-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+        className="mt-3 text-xs text-zinc-400 hover:text-zinc-100 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 hover:border-zinc-600 px-3 py-1 rounded-full transition-colors"
       >
         {expanded ? '접기 ↑' : '더 보기 ↓'}
       </button>
