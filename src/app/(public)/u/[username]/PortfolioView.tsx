@@ -1,6 +1,6 @@
 import type { PortfolioData } from '@/lib/portfolio/types'
 import type { SkillCategory } from '@/types'
-import MarkdownContent from '@/components/ui/MarkdownContent'
+import LogCard from '@/components/ui/LogCard'
 
 const SKILL_CATEGORY_LABELS: Record<SkillCategory, string> = {
   frontend: '프론트엔드',
@@ -157,22 +157,7 @@ export default function PortfolioView({ data }: { data: PortfolioData }) {
             </h2>
             <div className="space-y-8">
               {logs.map((log) => (
-                <article key={log.id} className="pb-8 border-b border-zinc-800/50 last:border-0 last:pb-0">
-                  <div className="flex items-baseline gap-3 mb-3">
-                    <h3 className="font-semibold text-zinc-100">{log.title}</h3>
-                    <span className="text-xs text-zinc-500 shrink-0">{log.learned_at}</span>
-                  </div>
-                  <MarkdownContent content={log.content} />
-                  {log.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {log.tags.map((t) => (
-                        <span key={t} className="text-xs text-zinc-600 bg-zinc-800/50 px-2 py-0.5 rounded">
-                          #{t}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </article>
+                <LogCard key={log.id} log={log} />
               ))}
             </div>
           </section>
