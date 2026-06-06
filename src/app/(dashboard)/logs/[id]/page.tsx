@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { Log, LogCategory } from '@/types'
 import { deleteLog } from '../actions'
 import DeleteButton from './DeleteButton'
+import MarkdownContent from '@/components/ui/MarkdownContent'
 
 const CATEGORY_LABEL: Record<LogCategory, string> = {
   cs: 'CS',
@@ -80,7 +81,7 @@ export default async function LogDetailPage({
         <h1 className="text-xl font-semibold text-white mb-4">{log.title}</h1>
 
         {/* 내용 */}
-        <p className="text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap">{log.content}</p>
+        <MarkdownContent content={log.content} />
 
         {/* 태그 */}
         {log.tags.length > 0 && (
